@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta Charest="UTF-8">
+<title>Test AngularJS</title>
+<!--script src="C:\wamp\www\Formation-AngularJS\assets\angular.min.js"></script-->
+<!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script-->
+
+<script src="../bower_components/angular/angular.min.js"></script>
+<script src="C:\wamp\www\Formation-AngularJS\assets\ex1.js"></script> 
+</head>  
+<body ng-app="myApp">
+<div  ng-controller="monControl">
+<h1> {{maVariable}} </h1>
+<h1>ok</h1>
+
+<ul> 
+ <button ng-click="affichage()">Afficher la liste</button>
+<ul ng-show="visible">
+<p>Ajouter un contact: <input type="text" ng-model="myname"/></p>
+<button ng-click="ajout()">Valider</button>
+  <li ng-repeat="x in names">  
+    {{ x.name + ', ' + x.image }}
+
+    <p><img  ng-click="clikImg()" width= "200px"  ng-src="{{x.image}}" /></p>
+  </li> 
+</ul>
+
+<ul>
+
+<li>fruit</li>
+<li ng-repeat="fruit in mesFruits">{{fruit}}</li>
+
+
+</ul>
+
+
+</div>
+</body>
+</html>

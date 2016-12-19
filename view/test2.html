@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta Charest="UTF-8">
+<title>Test AngularJS</title>
+<!--script src="C:\wamp\www\Formation-AngularJS\assets\angular.min.js"></script-->
+
+<script src="../bower_components/angular/angular.min.js"></script>
+<script src="C:\wamp\www\Formation-AngularJS\assets\ex1.js"></script> 
+</head>
+<body>
+<div ng-app="myApp2">
+ 
+<p>Taper votre NOM:</p>
+<p>NOM : <input type="text" ng-model="name" placeholder="Enter name here"></p>
+<h1>Hello {{name}}</h1>
+
+
+<div  ng-controller="personCtrl">
+First Name: <input type="text" ng-model="firstName"><br>
+Last Name: <input type="text" ng-model="lastName"><br>
+Adress: <input type="text" ng-model="adress"><br>
+<h1>Hello {{firstName}}</h1>
+<br>
+Full Name: {{fullName()}}
+
+
+<!---Fiche identite -->
+<h1>Fiche d'identité n°{{infoPerso.id}}</h1>
+<p>Nom : {{infoPerso.nom}}</p>
+<p>Prénom : {{infoPerso.prenom}}</p>
+<p>Date de Naissance : {{infoPerso.dateNaissance}}</p>
+
+sds
+</div>
+
+
+</body>
+</html>

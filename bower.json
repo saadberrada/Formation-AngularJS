@@ -1,0 +1,20 @@
+{
+  "name": "formation-angularjs",
+  "description": "formation",
+  "main": "test",
+  "keywords": [
+    "1255"
+  ],
+  "authors": [
+    "S@@D"
+  ],
+  "license": "TEST",
+  "homepage": "test",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
