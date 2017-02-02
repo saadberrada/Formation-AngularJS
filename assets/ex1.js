@@ -5,7 +5,7 @@ app.controller('monControl', ['$scope', function($scope) {
 $scope.maVariable = 'TEST ANGULARJS' ;
 var mesFruitsTab=["banane","pomme", "ananas","pêche","fraise"] ;
 //$scope.mesFruits=mesFruitsTab;
-
+ 
 
 //test check input
 $scope.check =function() {
