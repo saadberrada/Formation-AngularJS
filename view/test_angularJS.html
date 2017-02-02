@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+input.ng-invalid {
+    background-color:pink;
+}
+input.ng-valid {
+    background-color:lightgreen;
+}
+
+.expander {
+    border: 1px solid black; 
+    width: 250px;
+}
+
+.expander > .title { 
+    background-color: black; color: white;
+    padding: .1em .3em; cursor: pointer;
+}
+
+.expander > .body {
+    padding: .1em .3em; 
+}
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+    <!-- ngRoute  -->
+    <p><a href="#/">Main</a></p>
+    <a href="#london">London</a>
+    <a href="#paris">Paris</a>
+    <div ng-view></div>
+
+
+    <expander class="expander" expander-title="title">
+            {{text}}
+    </expander>
+    
+    <h1 ng-bind="firstname" ng-click="changeName()"></h1>
+    <h1 ng-bind="x2"> </h1>
+    <input ng-model="saad"/>
+    <p ng-bind="saad"></p>
+    <p ng-bind="myWelcome"></p>
+    <p ng-bind="theTime"></p>
+    <p> {{saad | currency}}</p>
+    <h3>{{myUrl}}</h3>
+    <h1>The hexadecimal value of 255 is:{{hex}}</h1>
+    <h1>{{255 | myFormat}}</h1>
+    <ul>
+        <li ng-repeat="x in counts">{{x | myFormat}}</li>
+    </ul>
+    <p>records.php</p>
+    <!-- <ul>
+      <li ng-repeat="x in myData">
+        {{ x.Name + ', ' + x.Country }}
+      </li>
+    </ul> -->
+    <table>
+      <tr ng-repeat="x in myData">
+        <td>{{ $index + 1 }}</td>
+        <td>{{ x.Name }}</td>
+        <td>{{ x.Country | uppercase }}</td>
+        <!-- <td ng-if="$odd" style="background-color:#f1f1f1">
+        {{ x.Name }}</td>
+        <td ng-if="$even">
+        {{ x.Name }}</td> -->
+      </tr>
+    </table>
+
+    <!-- use because the selected value can be an object -->
+    <select ng-model="selectedName" ng-options="x.Name for x in myData "></select>
+    <p ng-bind="selectedName.Country"></p>
+
+    <!-- don't use -->
+    <select>
+        <option ng-repeat="x in names">{{x}}</option>
+    </select>
+
+
+    <!-- ng-disabled -->
+    <button ng-init="mySwitch=true" ng-disabled="mySwitch">Click Me!</button>
+    </p>
+    <p>
+    <input type="checkbox" ng-model="mySwitch"/>Button
+    <h1 ng-show="mySwitch">My Header</h1>
+    </p>
+    <p>
+    {{ mySwitch }}
+    </p>
+
+    <!-- ng-hide/ng-show -->
+    <p ng-show="true">I am visible.</p>
+    <p ng-show="false">I am not visible.</p>
+    <p ng-init="hour = 6" ng-show="hour < 12">I am visible Hour.</p>
+
+   <!--  AngularJS Events
+    ng-blur
+    ng-change
+    ng-click
+    ng-copy
+    ng-cut
+    ng-dblclick
+    ng-focus
+    ng-keydown
+    ng-keypress
+    ng-keyup
+    ng-mousedown
+    ng-mouseenter
+    ng-mouseleave
+    ng-mousemove
+    ng-mouseover
+    ng-mouseup
+    ng-paste -->
+    <h1 ng-mousemove="count = count + 1">Mouse over me!</h1>
+    <h2>{{ count }}</h2>
+    <button ng-click="count = count + 1">Click me!</button>
+    <button ng-click="clickme()">Click me function!</button>
+    <button ng-click="myFunc()">Click me show!</button>
+    <div ng-show="showMe">here div showMwwww</div>
+    <h1 ng-mousemove="myFunc2($event)">Mouse Over Me!</h1>
+
+
+    <form name="myForm">
+        Email valide
+        <input type="email" name="myInput" ng-model="myInput" required>
+        <span style="color:red" ng-show="myForm.myInput.$touched && myForm.myInput.$dirty && myForm.myInput.$invalid">
+            <span ng-show="myForm.myInput.$error.required">Email is required.</span>
+            <span ng-show="myForm.myInput.$error.email">Invalid email address.</span>
+        </span>
+        <p></p>
+        Pick a topic:
+        <input type="radio" ng-model="myVar" value="dogs">Dogs
+        <input type="radio" ng-model="myVar" value="tuts">Tutorials
+        <input type="radio" ng-model="myVar" value="cars">Cars
+
+        <p>
+        <input type="submit"
+        ng-disabled="myForm.myInput.$dirty && myForm.myInput.$invalid">
+        </p>
+    </form>
+    <p>The input's valid state is:</p>
+        <h1>{{myForm.myInput.$valid}}</h1>
+
+    <!-- $untouched The field has not been touched yet
+    $touched The field has been touched
+    $pristine The field has not been modified yet
+    $dirty The field has been modified
+    $invalid The field content is not valid
+    $valid The field content is valid -->
+
+    <div ng-switch="myVar">
+        <div ng-switch-when="dogs">
+         <h1>Dogs</h1>
+         <p>Welcome to a world of dogs.</p>
+        </div>
+        <div ng-switch-when="tuts">
+         <h1>Tutorials</h1>
+         <p>Learn from examples.</p>
+        </div>
+        <div ng-switch-when="cars">
+         <h1>Cars</h1>
+         <p>Read about cars.</p>
+        </div>
+    </div>
+
+  
+
+</div>
+
+<script>
+var app = angular.module('myApp', ["ngRoute"]);
+ 
+//Create Your Own Service
+app.service('hexafy', function() {
+    this.myFunc = function (x) {
+        return x.toString(16);
+    }
+});
+
+app.filter('myFormat',['hexafy', function(hexafy) {
+    return function(x) {
+        return hexafy.myFunc(x);
+    };
+}]);
+
+//new directive using tranclude
+app.directive("expander", function(){
+    return {
+        restrict: 'EA',
+        replace: true,
+        transclude: true,
+        scope: {title: '=expanderTitle'},
+        template: '<div>' +
+        '<div class="title" ng-click="toggle()">{{title}}</div>' +
+        '<div class="body" ng-show="showMe" ng-transclude></div>' +
+        '</div>',
+        link: function(scope, element, attrs){
+            scope.showMe = false;
+            scope.toggle = function toggle(){
+                scope.showMe = !scope.showMe;
+            };
+        }
+    };
+});
+
+//SPA (Single Page Application)
+//if you want to navigate to different pages in your application, but you also want the application to be a SPA , with no page reloading, you can use the ngRoute module.
+app.config(function($routeProvider) {
+  $routeProvider
+  .when("/", {
+    //templateUrl : "paris.html",
+     template : "<h1>Banana</h1><p>Bananas contain around 75% water.</p>"
+  })
+  .when("/paris", {
+    templateUrl : "paris.html",
+    controller : "parisCtrl"
+  })
+  .when("/london", {
+    templateUrl : "london.html",
+    controller : "londonCtrl"
+  })
+  .otherwise({
+        template : "<h1>None</h1><p>Nothing has been selected</p>"
+    });
+
+});
+
+app.controller("londonCtrl", function ($scope) {
+    $scope.msg = "I love London";
+});
+app.controller("parisCtrl", function ($scope) {
+    $scope.msg = "I love Paris";
+});
+
+
+app.controller('myCtrl', function($scope,$location,$http,$timeout,$interval,hexafy) {
+    
+    $scope.title = "Titre";
+    $scope.text = "Contenu";
+
+    $scope.counts = [255, 251, 200];
+    $scope.names = ["Emil", "Tobias", "Linus"];
+    
+    $scope.myUrl = $location.absUrl();
+    $scope.firstname = "JohAn";
+    $scope.x2 = angular.lowercase($scope.firstname);
+    $scope.changeName = function() {
+        $scope.firstname = "Nelly";
+    }
+   
+    //Service
+    //$htto service
+    /*.delete()
+    .get()
+    .head()
+    .jsonp()
+    .patch()
+    .post()
+    .put()*/
+    //get
+     $http.get("welcome.htm").then(function (response) {
+        $scope.myWelcome = response.data;
+    });
+    //mySucces/myError
+    $http({
+        method : "GET",
+        url : "welcome.htm"
+    }).then(function mySucces(response) {
+        $scope.myWelcome = response.data;
+    }, function myError(response) {
+        $scope.myWelcome = response.statusText;
+    });
+
+    //
+     $http.get("wrongfilename.htm")
+    .then(function(response) {
+        //First function handles success
+        $scope.content = response.data;
+    }, function(response) {
+        //Second function handles error
+        $scope.content = "Something went wrong";
+    });
+
+    //
+    $http.get("records.php").then(function(response) {
+    //     $scope.myData =  [{
+    //   "Name": "Centro comercial Moctezuma",
+    //   "City": "México D.F.",
+    //   "Country": "Mexico"
+    // }]
+        console.log(response.data);
+        $scope.myData = response.data.records;
+    });
+
+    // $timeout
+    $timeout(function(){
+        $scope.firstname = "SAAD"
+    },"3000");
+
+    // $interval
+    $scope.theTime = new Date().toLocaleTimeString();
+    $interval(function () {
+        $scope.theTime = new Date().toLocaleTimeString();
+    }, 1000);
+    
+    $scope.hex = hexafy.myFunc(255);
+    /*end services*/
+
+    //event
+    $scope.count = 0;
+    $scope.clickme = function() {
+        $scope.count++;
+    }
+
+    $scope.showMe = false;
+    $scope.myFunc = function() {
+        $scope.showMe = !$scope.showMe;
+    }
+
+    $scope.myFunc2 = function(myE) {
+        $scope.x = myE;
+        console.log(myE);
+    }
+
+});
+</script>
+
+</body>
+</html>
