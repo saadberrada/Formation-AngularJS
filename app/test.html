@@ -1,0 +1,30 @@
+<!doctype html> 
+<html lang="fr"> 
+<head> 
+<meta Charest="utf-8"> 
+<title>Voici mon site</title> 
+
+
+<!--script src="C:/wamp/www/bower_components/angular/angular.min.js"></script>
+<script src="C:\wamp\www\Formation-AngularJS\app\angular.js"></script-->
+<script src='lib/angular.min.js'></script>
+<script src="javascript/angular.js"></script> 
+
+</head> 
+<body ng-app="myApp">
+<div  ng-controller="monControl">
+<h1>{{maVariable}}</h1> 
+<p ng-bind="maVariable"></p>
+<p>Ceci est un <strong>paragraphe</strong></p> 
+<!-- -->
+<button ng-click="affichage()">Afficher la liste</button> 
+<h1>Liste des adhérents</h1> 
+<div ng-repeat="perso in listePerso"> 
+<h3>Identifiant : {{perso.id}}</h3> 
+<p>Nom : {{perso.nom}}</p> 
+<p>Prénom : {{perso.prenom}}</p> 
+</div> 
+
+</div>
+</body>  
+</html>    
